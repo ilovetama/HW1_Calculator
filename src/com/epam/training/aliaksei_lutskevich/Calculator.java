@@ -12,18 +12,15 @@ public class Calculator implements ICalculator {
         double firstNumber = getNumber();
         double secondNumber = getNumber();
         char operation = getOperation();
-        double result = calculate.switchOperation(operation,firstNumber,secondNumber);
-        System.out.println("The result is: " + result);
-    }
-
-    public double getResult(double result){
-        return Math.round((result)*(int)Math.pow(10.0, precision))/ Math.pow(10.0, precision);
+        double result = calculate.calculation(operation,firstNumber,secondNumber);
+        System.out.println(firstNumber + " " + operation + " " + secondNumber + " = " + result);
     }
 
     public static double getNumber () {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number:");
-        if (scanner.hasNext("\\d*") && scanner.hasNext("^[^\\s]*$")) {
+        if (scanner.hasNextDouble() && scanner.hasNext("^[^\\s]*$"))
+        {
             return scanner.nextDouble();
         } else {
             System.out.println("Number is incorrect. Try again");
@@ -44,7 +41,7 @@ public class Calculator implements ICalculator {
         return operation;
     }
 
-    public double switchOperation(char operation, double firstNumber, double secondNumber) {
+    public double calculation(char operation, double firstNumber, double secondNumber) {
         Calculator calculate = new Calculator();
         return switch (operation) {
             case '+' -> calculate.add(firstNumber, secondNumber);
@@ -77,5 +74,9 @@ public class Calculator implements ICalculator {
             System.exit(0);
         }
         return getResult(a / b);
+    }
+
+    public double getResult(double result){
+        return Math.round((result)*(int)Math.pow(10.0, precision))/ Math.pow(10.0, precision);
     }
 }
