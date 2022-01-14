@@ -12,19 +12,18 @@ public class Calculator implements ICalculator {
         double firstNumber = getNumber();
         double secondNumber = getNumber();
         char operation = getOperation();
-        calculate.operation(operation,firstNumber,secondNumber);
-
+        double result = calculate.switchOperation(operation,firstNumber,secondNumber);
+        System.out.println("The result is: " + result);
     }
 
     public double getResult(double result){
-        result = Math.round((result)*(int)Math.pow(10.0, precision))/(double)Math.pow(10.0, precision);
-        return result;
+        return Math.round((result)*(int)Math.pow(10.0, precision))/ Math.pow(10.0, precision);
     }
 
     public static double getNumber () {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the number:");
-        if (scanner.hasNextDouble()) {
+        if (scanner.hasNext("\\d*") && scanner.hasNext("^[^\\s]*$")) {
             return scanner.nextDouble();
         } else {
             System.out.println("Number is incorrect. Try again");
@@ -36,53 +35,39 @@ public class Calculator implements ICalculator {
         System.out.println("Enter the operation (+, -, *, /):");
         Scanner scanner = new Scanner(System.in);
         char operation;
-        if (scanner.hasNext()) {
+        if (scanner.hasNext("[+*/-]")) {
             operation = scanner.next().charAt(0);
         } else {
             System.out.println("Operation is incorrect. Try again");
-            scanner.next();
             operation = getOperation();
         }
         return operation;
     }
 
-    public double operation(char operation, double firstNumber, double secondNumber) {
+    public double switchOperation(char operation, double firstNumber, double secondNumber) {
         Calculator calculate = new Calculator();
-        double result = 0;
-        switch (operation) {
-            case '+': result = calculate.add(firstNumber,secondNumber);
-                break;
-            case '-': result = calculate.subtract(firstNumber,secondNumber);
-                break;
-            case '*': result = calculate.multiply(firstNumber,secondNumber);
-                break;
-            case '/': result = calculate.divide(firstNumber,secondNumber);
-                break;
-            default:
-                System.out.println("Operation is incorrect. Try again");
-        }
-        return result;
+        return switch (operation) {
+            case '+' -> calculate.add(firstNumber, secondNumber);
+            case '-' -> calculate.subtract(firstNumber, secondNumber);
+            case '*' -> calculate.multiply(firstNumber, secondNumber);
+            case '/' -> calculate.divide(firstNumber, secondNumber);
+            default -> 0;
+        };
     }
 
     @Override
     public double add(double a, double b) {
-        double addResult = getResult(a + b);
-        System.out.println("The result is: " +addResult);
-        return addResult;
+        return getResult(a + b);
     }
 
     @Override
     public double subtract(double a, double b) {
-        double subtractResult = getResult(a - b);
-        System.out.println("The result is: " +subtractResult);
-        return subtractResult;
+        return getResult(a - b);
     }
 
     @Override
     public double multiply(double a, double b) {
-        double multiplyResult = getResult(a * b);
-        System.out.println("The result is: " +multiplyResult);
-        return multiplyResult;
+        return getResult(a * b);
     }
 
     @Override
@@ -91,8 +76,6 @@ public class Calculator implements ICalculator {
             System.out.println("Division by zero is prohibited");
             System.exit(0);
         }
-        double divideResult = getResult(a / b);
-        System.out.println("The result is: " +divideResult);
-        return divideResult;
+        return getResult(a / b);
     }
 }
