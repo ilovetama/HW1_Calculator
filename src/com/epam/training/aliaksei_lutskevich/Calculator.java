@@ -16,7 +16,7 @@ public class Calculator extends CalculationUtils {
 
   public double divide(double a, double b) {
     if (b == 0) {
-      System.out.println("Division by zero is prohibited");
+      System.out.println("Division by zero is not allowed");
       System.exit(0);
     }
     return getResult(a / b);
