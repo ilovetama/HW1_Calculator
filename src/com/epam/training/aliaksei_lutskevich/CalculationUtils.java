@@ -13,7 +13,7 @@ public class CalculationUtils {
     System.out.println("Enter the number:");
     if (scanner.hasNextDouble() && scanner.hasNext(NON_SPACE_REGEX)) {
       return scanner.nextDouble();
-    } else if (scanner.hasNext(SPACE_REGEX)) {
+    } else if (scanner.hasNext(SPACE_REGEX)) {      //не понимаю, почему это не работает
       System.out.println("Enter the number");
       return getNumber();
     } else {
