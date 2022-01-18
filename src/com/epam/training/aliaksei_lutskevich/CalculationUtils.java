@@ -6,7 +6,7 @@ public class CalculationUtils {
 
   private static final String NON_SPACE_REGEX = "^[\\S]*$";
   private static final String SPACE_REGEX = "^[\\s]*$";
-  private static final String ARITHMETIC_SINGS = "[-*+/]";
+  private static final String ARITHMETIC_SINGS = "^\\S*[-*+/]\\S*$";
 
   public static double getNumber() {
     Scanner scanner = new Scanner(System.in);
@@ -14,8 +14,7 @@ public class CalculationUtils {
     if (scanner.hasNextDouble() && scanner.hasNext(NON_SPACE_REGEX)) {
       return scanner.nextDouble();
     } else if (scanner.hasNext(SPACE_REGEX)) {
-      System.out.println("Number is incorrect. Try again");
-      scanner.next();
+      System.out.println("Enter the number");
       return getNumber();
     } else {
       System.out.println("Number is incorrect. Try again");
