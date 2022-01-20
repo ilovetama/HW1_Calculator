@@ -35,7 +35,7 @@ public class CalculationUtils {
     return operation;
   }
 
-  public double calculation(char operation, double firstNumber, double secondNumber) {
+  public static double calculation(char operation, double firstNumber, double secondNumber) {
     Calculator calculate = new Calculator();
     return switch (operation) {
       case '+' -> calculate.add(firstNumber, secondNumber);
@@ -46,7 +46,7 @@ public class CalculationUtils {
     };
   }
 
-  public double getResult(double result) {
+  public static double getResult(double result) {
     final int CALCULATION_ACCURACY = 2; //A quantity of digits after comma
     return Math.round((result) * (int) Math.pow(10.0, CALCULATION_ACCURACY)) / Math.pow(10.0,
         CALCULATION_ACCURACY);
